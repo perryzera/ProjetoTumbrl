@@ -1,0 +1,59 @@
+{% extends "perry.html" %}
+
+{% block titulo %}  Perfil do {{ user.username }} {% endblock %}
+
+
+{% block body %}
+
+    <h1> Bem-Vindo {{ user.username }}!  -  {{ mesa }} </h1>
+    <a href=" {{ url_for('homepage') }} "> HOME </a>
+
+    
+    {% if form %}
+        <h2> MEU PERFIL </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+
+            {{ form.text.label() }}
+            {{ form.text() }}
+
+            {{ form.photo.label() }}
+            {{ form.photo() }}
+
+            {{ form.btn() }}
+        </form>
+
+    {% endif %}
+
+    {% for post in user.posts %}
+        <!-- <img src="{{ url_for('static', filename='fotos_dos_posts/default.jpg') }}"> -->
+        
+    <div class="card">
+        <h2 class="card-title">{{ post.post_text }}</h2>
+        <img class="card-img-top" src="{{ url_for('static', filename='fotos_dos_posts/{}'.format(post.post_img)) }}">
+        <div class="card-body"></div>
+        
+    </div>
+    {% endfor %}
+
+<style>
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        margin: 0 10px 10px 0;
+    }
+        
+    .card-img-top {
+        width: 200px;
+        height: 200px;
+    }
+        
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "perry.html" %}
+
+{% block titulo %} HOMMER {% endblock %}
+
+
+{% block body %}
+
+    {% block formulario %}
+    <form method="POST">
+        {{ form.csrf_token }}
+
+        {{ form.email.label() }}
+        {{ form.email() }}
+
+        {{ form.password.label() }}
+        {{ form.password() }}
+
+        {{ form.btn() }}
+    </form>
+    {% endblock %}
+
+    {% include "navbar.html" %}
+
+    BOOUA
+    
+    {% for i in range(1): %}
+        <h1> {{ textinho }}  </h1>
+    {% endfor %}
+
+    {% for post in posts %}
+    <div class="card" id="post-{{ post.id }}">
+        <h2> {{ post.user.username }}</h2>
+        <img class="card-img-top" src="{{ url_for('static', filename='fotos_dos_posts/{}'.format(post.post_img)) }}" alt="{{ post.post_text }}">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.post_text }}</h2>
+        </div>
+    </div>
+    {% endfor %}
+
+    <style>
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 0 10px 10px 0;
+        }
+        
+        .card-img-top {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        </style>
+
+{% endblock %}
